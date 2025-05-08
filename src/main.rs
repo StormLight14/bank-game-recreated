@@ -14,6 +14,13 @@ pub struct Player {
   pub is_banking: bool
 }
 
+#[derive(Clone)]
+pub struct Preferences {
+  pub rounds: u8,
+  pub use_virtual_dice: bool,
+  pub show_roll_count: bool
+}
+
 pub enum Page {
   Home,
   Game,
@@ -21,6 +28,9 @@ pub enum Page {
 }
 
 static PAGE: GlobalSignal<Page> = Global::new(|| Page::Home);
+static PLAYERS: GlobalSignal<Vec<Player>> = Global::new(|| Vec::new());
+static WINNERS: GlobalSignal<Vec<Player>> = Global::new(|| vec![Player { id: "no id".to_owned(), name: "NO ONE".to_owned(), score: 0, is_banking: false}] );
+static PREFERENCES: GlobalSignal<Preferences> = Global::new(|| Preferences { rounds: 10, use_virtual_dice: false, show_roll_count: true} );
 
 fn main() {
   dioxus::launch(App);
@@ -28,14 +38,7 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-  let rounds = use_signal(|| 10);
-  let player_name_input = use_signal(|| "");
-  let use_virtual_dice = use_signal(|| false);
-  let show_roll_count = use_signal(|| false);
-  let mut players: Signal<Vec<Player>> = use_signal(|| Vec::new());
-  let mut winners: Signal<Vec<Player>> = use_signal(|| Vec::new());
   let current_round = use_signal(|| 1);
-  let current_roll = use_signal(|| 1);
   let current_score = use_signal(|| 0);
   let dice_one_value = use_signal(|| 1);
   let dice_two_value = use_signal(|| 1);
