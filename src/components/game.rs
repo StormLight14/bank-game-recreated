@@ -10,7 +10,7 @@ pub fn Game() -> Element {
   let mut current_round = use_signal(|| 1);
   let mut current_score = use_signal(|| 0);
 
-  let mut show_virtual_dice = use_signal(|| false);
+  let show_virtual_dice = use_signal(|| false);
   let mut show_roll_button = use_signal(|| true);
   let mut dice_one_value = use_signal(|| 1);
   let mut dice_two_value = use_signal(|| 1);
