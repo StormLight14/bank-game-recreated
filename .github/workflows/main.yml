@@ -1,13 +1,39 @@
-name: github pages
+name: Dioxus Deploy
 
 on:
   push:
-    branches:
-      - main
+    branches: [ main ]  # Set the branch you want to trigger the action on
 
 jobs:
-  build-deploy:
+  deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: "Dioxus Deploy"
-        uses: DioxusLabs/deploy-action@0.1.2
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Rust toolchain
+        uses: actions-rs/toolchain@v1.0.6
+        with:
+          toolchain: ${{ inputs.toolchain || 'stable' }}
+          profile: minimal
+          target: wasm32-unknown-unknown
+          override: true
+
+      - name: Cache Rust dependencies
+        uses: Swatinem/rust-cache@v2
+
+      - name: Install Dioxus-CLI
+        run: cargo install dioxus-cli
+
+      - name: Build Project
+        run: |
+          cd ${{ inputs.rootPath || '.' }}
+          dx build --${{ inputs.buildMode || 'release' }}
+          cp ./target/dx/bank-game-recreated/release/web/public/index.html ./target/dx/bank-game-recreated/release/web/public/404.html
+
+      - name: Deploy Project
+        uses: JamesIves/github-pages-deploy-action@v4.4.1
+        with:
+          branch: gh-pages
+          folder: ${{ inputs.rootPath || '.' }}/target/dx/bank-game-recreated/release/web/public
+          clean: false
