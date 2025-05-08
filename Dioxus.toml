@@ -24,4 +24,4 @@ script = []
 resources = ["assets/main.css", "assets/header.svg", "**/*.png"]
 identifier = "dev.stormyyy"
 publisher = "stormyyy"
-icon = ["assets/dice3.png"]
+icon = ["icons/icon.ico"]
