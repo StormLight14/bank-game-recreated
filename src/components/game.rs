@@ -1,5 +1,8 @@
 use dioxus::prelude::*;
+use rand::Rng;
 use crate::{Page, PAGE, PLAYERS, PREFERENCES, WINNERS};
+
+static DICE_IMGS: [Asset; 6] = [asset!("assets/dice1.png"), asset!("assets/dice2.png"),asset!("assets/dice3.png"),asset!("assets/dice4.png"),asset!("assets/dice5.png"), asset!("assets/dice6.png")];
 
 #[component]
 pub fn Game() -> Element {
@@ -11,7 +14,7 @@ pub fn Game() -> Element {
   let mut show_roll_button = use_signal(|| true);
   let mut dice_one_value = use_signal(|| 1);
   let mut dice_two_value = use_signal(|| 1);
-  let mut roll_label = use_signal(|| 2);
+  let mut roll_label = use_signal(|| String::new());
 
   let mut round_end = move || {
     if *current_round.read() < PREFERENCES.read().rounds {
@@ -68,25 +71,26 @@ pub fn Game() -> Element {
   };
 
   let mut roll_virtual_dice = move || {
-    let dice_one_value = get_rand_integer(1, 7);
-    let dice_two_value = get_rand_integer(1, 7);
-    let roll = dice_one_value + dice_two_value;
+    let mut rng = rand::rng();
+    let rand_one: i64 = rng.random_range(1..=6);
+    let rand_two: i64 = rng.random_range(1..=6);
+    let roll = rand_one + rand_two;
 
-    *dice_one_value.write() = dice_one_value;
-    *dice_two_value.write() = dice_two_value;
+    *dice_one_value.write() = rand_one;
+    *dice_two_value.write() = rand_two;
     *show_virtual_dice.write() = true;
 
     if roll == 7 && *current_roll.read() <= 3 {
         *current_score.write() += 70;
         *current_roll.write() += 1;
-        *roll_label.write() = "+70".to_string();
+        *roll_label.write() = "+70".to_owned();
     } else if dice_one_value == dice_two_value && *current_roll.read() > 3 {
         *current_score.write() *= 2;
         *current_roll.write() += 1;
-        *roll_label.write() = "Doubles!".to_string();
+        *roll_label.write() = "Doubles!".to_owned();
     } else if roll == 7 {
         round_end();
-        *roll_label.write() = "7 ends the round!".to_string();
+        *roll_label.write() = "7 ends the round!".to_owned();
     } else {
         *current_roll.write() += 1;
         *current_score.write() += roll;
@@ -145,8 +149,8 @@ pub fn Game() -> Element {
     } else {
       if *show_virtual_dice.read() == true {
         div { class: "dice-container",
-          img { src: "dice{dice_one_value}.png", alt: "Dice One with value of {dice_one_value}" }
-          img { src: "dice{dice_two_value}.png", alt: "Dice Two with value of {dice_two_value}" }
+          img { src: DICE_IMGS[(*dice_one_value.read() as usize) - 1], alt: "Dice One with value of {dice_one_value} | " }
+          img { src: DICE_IMGS[(*dice_two_value.read() as usize) - 1], alt: "Dice Two with value of {dice_two_value}" }
         }
         p { "{roll_label}" }
       }
