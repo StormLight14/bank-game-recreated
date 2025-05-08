@@ -14,7 +14,7 @@ jobs:
       - name: Set up Rust toolchain
         uses: actions-rs/toolchain@v1.0.6
         with:
-          toolchain: ${{ inputs.toolchain || 'stable' }}
+          toolchain: stable  # Use a static value or define inputs
           profile: minimal
           target: wasm32-unknown-unknown
           override: true
@@ -27,13 +27,14 @@ jobs:
 
       - name: Build Project
         run: |
-          cd ${{ inputs.rootPath || '.' }}
-          dx build --${{ inputs.buildMode || 'release' }}
+          cd .  # Use a static value or define inputs
+          dx build --release  # Use a static value or define inputs
           cp ./target/dx/bank-game-recreated/release/web/public/index.html ./target/dx/bank-game-recreated/release/web/public/404.html
 
       - name: Deploy Project
         uses: JamesIves/github-pages-deploy-action@v4.4.1
         with:
           branch: gh-pages
-          folder: ${{ inputs.rootPath || '.' }}/target/dx/bank-game-recreated/release/web/public
+          folder: ./target/dx/bank-game-recreated/release/web/public  # Use a static value or define inputs
           clean: false
+          token: ${{ secrets.GITHUB_TOKEN }}  # Explicitly set the token
