@@ -1,6 +1,199 @@
-body {
-  background-color: #0f1116;
-  color: #ffffff;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  margin: 20px;
+:root {
+  font-family: Helvetica, sans-serif;
+  font-size: 1em;
+  font-weight: 400;
+
+  color: #0f0f0f;
+  background-color: #f6f6f6;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+.container {
+  margin-left: 0;
+  margin-right: 0;
+  padding-top: 5vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  width: 95vw;
+}
+
+.row {
+  display: flex;
+  justify-content: center;
+}
+
+.player {
+  margin: 0.5em 0;
+  padding: 0em 1em;
+  gap: 10vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 80vw;
+  background-color: #ffffff;
+  color: #0f0f0f;
+  border-radius: 1em;
+}
+
+.player button {
+  margin: 0;
+}
+
+.round {
+  margin-top: 0;
+  font-size: 1.5em;
+}
+
+.pot {
+  margin-top: 0;
+  margin-bottom: 0.5em;
+  font-size: 2.5em;
+  font-weight: 500;
+  
+}
+
+.bank-container {
+  left: 50%;
+  transform: translateX(-50.5%);
+  margin: 0;
+  position: absolute;
+  width: 100vw;
+  display: block;
+  align-items: center;
+}
+
+.bank-button {
+  height: 3.3em;
+  margin-bottom: 0;
+}
+
+.dice-container {
+  margin-top: 0.5em;
+}
+
+.dice-container img {
+  height: 4em;
+}
+
+.roll-menu {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90vw;
+  gap: 0.3em;
+}
+
+.roll-menu button {
+  padding: 1em 1.4em;
+  font-size: 1.1em;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+
+a:hover {
+  color: #535bf2;
+}
+
+h1 {
+  text-align: center;
+}
+
+form button {
+  margin-left: 5px;
+}
+
+input[type=text],
+button {
+  margin-top: 0.3em;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  color: #0f0f0f;
+  background-color: #ffffff;
+  transition: border-color 0.25s;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+input[type=range] {
+  width: 80vw;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:active {
+  background-color: #e8e8e8;
+}
+
+.bad-seven {
+  background-color: #FF0000;
+}
+
+.disabled {
+  background-color: #f0f0f0;
+  color: #a0a0a0;
+  cursor: not-allowed;
+  opacity: 0.8;
+}
+
+.remove-player {
+  padding: 0.1em 0.1em;
+  padding-left: 1em;
+  box-shadow: none;
+}
+
+*:focus {
+  outline: none;
+}
+
+.checkbox-container {
+  margin-top: 0.5em;
+  margin-bottom: 0em;
+  padding: 0.3em 0.3em;
+  font-size: 1.05em;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color: #f6f6f6;
+    background-color: #2f2f2f;
+  }
+
+  a:hover {
+    color: #24c8db;
+  }
+
+  input[type=text],
+  .player,
+  button {
+    color: #ffffff;
+    background-color: #0f0f0f98;
+  }
+  button:active {
+    background-color: #0f0f0f69;
+  }
+  .remove-player {
+    background-color: #00000000;
+  }
+  .doubles-disabled {
+    background-color: #a0a0a0;
+    color: #f0f0f0;
+  }
 }

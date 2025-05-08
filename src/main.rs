@@ -1,13 +1,26 @@
 use dioxus::prelude::*;
+use components::{home, game, end};
+
+mod components;
 
 const FAVICON: Asset = asset!("/assets/favicon.ico");
 const MAIN_CSS: Asset = asset!("/assets/main.css");
 
-struct Player {
-  name: String,
-  score: i64,
-  is_banking: bool
+#[derive(Clone)]
+pub struct Player {
+  pub id: String,
+  pub name: String,
+  pub score: i64,
+  pub is_banking: bool
 }
+
+pub enum Page {
+  Home,
+  Game,
+  End
+}
+
+static PAGE: GlobalSignal<Page> = Global::new(|| Page::Home);
 
 fn main() {
   dioxus::launch(App);
@@ -19,11 +32,11 @@ fn App() -> Element {
   let player_name_input = use_signal(|| "");
   let use_virtual_dice = use_signal(|| false);
   let show_roll_count = use_signal(|| false);
-  let mut players = use_signal(|| Vec::new());
-  let mut winners = use_signal(|| Vec::new());
+  let mut players: Signal<Vec<Player>> = use_signal(|| Vec::new());
+  let mut winners: Signal<Vec<Player>> = use_signal(|| Vec::new());
   let current_round = use_signal(|| 1);
   let current_roll = use_signal(|| 1);
-  let current_score = use_signal(|| (0);
+  let current_score = use_signal(|| 0);
   let dice_one_value = use_signal(|| 1);
   let dice_two_value = use_signal(|| 1);
   let show_virtual_dice = use_signal(|| false);
@@ -33,5 +46,13 @@ fn App() -> Element {
   rsx! {
     document::Link { rel: "icon", href: FAVICON }
     document::Link { rel: "stylesheet", href: MAIN_CSS }
+
+    div { class: "container",
+      match *PAGE.read() {
+        Page::Home => rsx! { home::Home {} },
+        Page::Game => rsx! { game::Game {} },
+        Page::End => rsx! { end::End {} },
+      }
+    }
   }
 }

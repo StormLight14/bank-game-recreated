@@ -8,9 +8,23 @@ edition = "2021"
 
 [dependencies]
 dioxus = { version = "0.6.0", features = [] }
+uuid = { version = "1.16.0", features = ["v4", "rng-rand", "js" ] }
+getrandom = { version = "0.3", features = ["wasm_js"]}
 
 [features]
 default = ["web"]
 web = ["dioxus/web"]
 desktop = ["dioxus/desktop"]
 mobile = ["dioxus/mobile"]
+
+[profile]
+
+[profile.wasm-dev]
+inherits = "dev"
+opt-level = 1
+
+[profile.server-dev]
+inherits = "dev"
+
+[profile.android-dev]
+inherits = "dev"
