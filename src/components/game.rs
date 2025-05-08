@@ -118,8 +118,8 @@ pub fn Game() -> Element {
             }
           }
         }
+        p { "{player_score}" }
       }
-      p { "{player_score}" }
     }
 
     if PREFERENCES.read().show_roll_count {
