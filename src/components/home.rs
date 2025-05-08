@@ -36,6 +36,7 @@ pub fn Home() -> Element {
 
     div { class: "players",
     for (player_id, player_name) in new_player_data {
+      {let _player_id_clone = player_id.clone();} // how tf does this fix anything?? WHAT?
       div { key: "{player_id}", class: "player",
         p { "{player_name}" }
         button { r#type: "button", class: "remove-player", onclick: move |_| remove_player(player_id.clone()),
