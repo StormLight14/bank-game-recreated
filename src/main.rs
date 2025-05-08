@@ -38,14 +38,6 @@ fn main() {
 
 #[component]
 fn App() -> Element {
-  let current_round = use_signal(|| 1);
-  let current_score = use_signal(|| 0);
-  let dice_one_value = use_signal(|| 1);
-  let dice_two_value = use_signal(|| 1);
-  let show_virtual_dice = use_signal(|| false);
-  let show_roll_button = use_signal(|| true);
-  let roll_label = use_signal(|| "");
-
   rsx! {
     document::Link { rel: "icon", href: FAVICON }
     document::Link { rel: "stylesheet", href: MAIN_CSS }
