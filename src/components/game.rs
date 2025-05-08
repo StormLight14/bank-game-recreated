@@ -10,8 +10,7 @@ pub fn Game() -> Element {
   let mut current_round = use_signal(|| 1);
   let mut current_score = use_signal(|| 0);
 
-  let show_virtual_dice = use_signal(|| false);
-  let mut show_roll_button = use_signal(|| true);
+  let mut show_virtual_dice = use_signal(|| false);
   let mut dice_one_value = use_signal(|| 1);
   let mut dice_two_value = use_signal(|| 1);
   let mut roll_label = use_signal(|| String::new());
@@ -152,9 +151,7 @@ pub fn Game() -> Element {
         }
         p { "{roll_label}" }
       }
-      if *show_roll_button.read() == true {
-        button { class: "roll-button", onclick: move |_event| roll_virtual_dice(), "Roll Dice" }
-      }
+      button { class: "roll-button", onclick: move |_event| roll_virtual_dice(), "Roll Dice" }
     }
   }
 }
