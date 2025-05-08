@@ -107,15 +107,13 @@ pub fn Game() -> Element {
     for (i, (player_id, player_name, player_score, player_is_banking)) in new_player_data.iter().enumerate() {
       div { key: "{player_id}", class: "player",
         p { "{player_name}" }
-        div {class: "bank-container",
-          if *player_is_banking == false {
-            button { class: "bank-button", onclick: move |_event| bank(i),
-              "Bank!"
-            }
-          } else {
-            button { class: "bank-button", onclick: move |_event| undo_bank(i),
-              "Undo Bank!"
-            }
+        if *player_is_banking == false {
+          button { class: "bank-button", onclick: move |_event| bank(i),
+            "Bank!"
+          }
+        } else {
+          button { class: "bank-button", onclick: move |_event| undo_bank(i),
+            "Undo Bank!"
           }
         }
         p { "{player_score}" }

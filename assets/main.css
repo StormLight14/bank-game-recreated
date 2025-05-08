@@ -60,16 +60,6 @@
   
 }
 
-.bank-container {
-  left: 50%;
-  transform: translateX(-50.5%);
-  margin: 0;
-  position: absolute;
-  width: 100vw;
-  display: block;
-  align-items: center;
-}
-
 .bank-button {
   height: 3.3em;
   margin-bottom: 0;
