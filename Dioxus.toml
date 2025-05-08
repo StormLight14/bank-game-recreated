@@ -21,4 +21,7 @@ script = []
 script = []
 
 [bundle]
-resources = ["main.css", "header.svg", "**/*.png"]
+resources = ["assets/main.css", "assets/header.svg", "**/*.png"]
+identifier = "dev.stormyyy"
+publisher = "stormyyy"
+icon = ["assets/dice3.png"]
